@@ -1,11 +1,17 @@
-import time
+import os
+from flask import Flask
+from threading import Thread
 
-def run_bot():
-    print("Olymp Trade Bot is running...")
-    while True:
-        # এখানে ভবিষ্যতে আমাদের এনালাইসিস কোড যোগ হবে
-        print("Market status: Monitoring...")
-        time.sleep(60) 
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Bot is running..."
+
+def run_flask():
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host='0.0.0.0', port=port)
 
 if __name__ == "__main__":
-    run_bot()
+    # সার্ভারটি চালু করছি যাতে রেন্ডার আর এরর না দেয়
+    run_flask()
