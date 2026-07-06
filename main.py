@@ -1,9 +1,12 @@
 import os
+import sys
 import time
 from flask import Flask
 from threading import Thread
 
-# Flask সার্ভার সেটআপ
+# বাফার বন্ধ করার জন্য যাতে সব লেখা লগে সাথে সাথে দেখায়
+sys.stdout.reconfigure(line_buffering=True)
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -14,16 +17,12 @@ def run_flask():
     port = int(os.environ.get("PORT", 8080))
     app.run(host='0.0.0.0', port=port)
 
-# বটের কাজ করার জন্য আলাদা ফাংশন
-def bot_process():
-    print("Bot process started!") # এটি আপনার লগে দেখাবে
+def bot_engine():
+    print("LOG: Bot process started successfully!", flush=True)
     while True:
-        print("Monitoring market...") # এটি প্রতি মিনিটে লগে আসবে
-        # আপনার ট্রেডিং লজিক বা সিগন্যাল এখানে থাকবে
-        time.sleep(60) 
+        print("LOG: Monitoring market status...", flush=True)
+        time.sleep(60)
 
 if __name__ == "__main__":
-    # Flask কে আলাদা থ্রেডে চালু করা
     Thread(target=run_flask).start()
-    # বট প্রসেস চালু করা
-    bot_process()
+    bot_engine()
