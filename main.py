@@ -1,12 +1,10 @@
 import os
 import time
 import requests
-import pandas as pd
-import numpy as np
 from flask import Flask
 from threading import Thread
 
-# আপনার কনফিগারেশন
+# আপনার তথ্য
 BOT_TOKEN = "8935684819:AAHUzLPPpVmC10VXUM1SG1esWpFAFE4Taxk"
 CHAT_ID = "7627603437"
 
@@ -20,23 +18,24 @@ def send_telegram_message(signal):
 app = Flask(__name__)
 @app.route('/')
 def home():
-    return "Bot is active and analyzing market!"
+    return "Bot is running and monitoring!"
 
 def run_flask():
     port = int(os.environ.get("PORT", 8080))
     app.run(host='0.0.0.0', port=port)
 
 def trading_bot_engine():
-    print("Engine started: Monitoring market...")
+    print("Engine started: Monitoring market conditions...")
     while True:
         try:
-            # এখানে আমরা লাইভ মার্কেট ডেটা ফেচ করব (পরবর্তী ধাপে)
+            # এখানে আমরা এনালাইসিস শুরু করব
             print("Status: Analysis cycle running...")
             
-            # ক্যালকুলেশন লজিক এখানে যুক্ত হবে
-            # সিগন্যাল পেলে: send_telegram_message("UP") বা "DOWN"
+            # --- এখানে ভবিষ্যতে EMA/RSI এর শর্ত বসবে ---
+            # আপাতত আমরা একটি টেস্ট মেসেজ পাঠাবো কি না চেক করার জন্য
+            # send_telegram_message("Bot test signal") 
             
-            time.sleep(60) # প্রতি মিনিটে এনালাইসিস
+            time.sleep(60) # প্রতি ১ মিনিট পর পর এনালাইসিস করবে
         except Exception as e:
             print(f"Engine Error: {e}")
             time.sleep(10)
